@@ -394,7 +394,7 @@ void strategiju_analize()
                 failo_skaitymas(vector3, vectorFailas3);
 
                 auto pradzia = std::chrono::steady_clock::now();
-                studentu_rusiavimas_3strat(vector3, vector3Vargsiukai);
+                studentu_rusiavimas_3strat(vector3);
                 auto pabaiga = std::chrono::steady_clock::now();
                 const std::chrono::duration<double> laikas = pabaiga - pradzia;
                 std::cout << "3 strategija (Vector): " << std::fixed << std::setprecision(6)
@@ -437,7 +437,7 @@ void strategiju_analize()
                 failo_skaitymas(list3, listFailas3);
 
                 auto pradzia = std::chrono::steady_clock::now();
-                studentu_rusiavimas_3strat(list3, list3Vargsiukai);
+                studentu_rusiavimas_3strat(list3);
                 auto pabaiga = std::chrono::steady_clock::now();
                 const std::chrono::duration<double> laikas = pabaiga - pradzia;
                 std::cout << "3 strategija (List):   " << std::fixed << std::setprecision(6)
@@ -523,29 +523,25 @@ bool yra_kietiakas(const studentas& A)
 }
 
 void studentu_rusiavimas_3strat(
-    std::vector<studentas>& grupe,
-    std::vector<studentas>& vargsiukai)
+    std::vector<studentas>& grupe)
 {
-    vargsiukai.clear();
+    grupe.clear();
 
     auto riba = std::partition(
         grupe.begin(), grupe.end(), yra_kietiakas);
 
-    vargsiukai.assign(riba, grupe.end());
-    grupe.erase(riba, grupe.end());
+    grupe.assign(riba, grupe.end());
 }
 
 void studentu_rusiavimas_3strat(
-    std::list<studentas>& grupe,
-    std::list<studentas>& vargsiukai)
+    std::list<studentas>& grupe)
 {
-    vargsiukai.clear();
+    grupe.clear();
 
     auto riba = std::partition(
         grupe.begin(), grupe.end(), yra_kietiakas);
 
-    vargsiukai.assign(riba, grupe.end());
-    grupe.erase(riba, grupe.end());
+    grupe.assign(riba, grupe.end());
 }
 
 void studentu_isvedimas(const std::string &failoPavadinimas, const std::vector<studentas> &grupe)
