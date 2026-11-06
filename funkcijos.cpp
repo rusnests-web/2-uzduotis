@@ -228,7 +228,7 @@ void failu_generavimas(const string& failo_pavadinimas, size_t studentu_skaicius
 
 void spartos_analize()
 {
-    std::vector<size_t> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+    std::vector<size_t> dydziai = {100000, 1000000};
     std::random_device seed;
     std::mt19937 rng(seed());
     std::uniform_int_distribution<int> ndDist(7, 20);
@@ -276,7 +276,7 @@ void spartos_analize()
             std::chrono::duration<double> t_skaitymo = t2 - t1;
             std::cout << dydis << " irasu failo skaitymo laikas (Vector): " << std::fixed << std::setprecision(6) << t_skaitymo.count() << "\n";
             auto t3 = std::chrono::high_resolution_clock::now();
-            studentu_rusiavimas(grupe, vargsiukai, kietiakai);
+            studentu_rusiavimas_3strat(grupe, vargsiukai);
             auto t4 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_dalijimo = t4 - t3;
             std::cout << dydis << " irasu failo dalijimo i dvi grupes laikas (Vector): " << std::fixed << std::setprecision(6) << t_dalijimo.count() << "\n";
@@ -340,7 +340,7 @@ void spartos_analize()
 
 void strategiju_analize()
 {
-    const std::vector<size_t> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+    const std::vector<size_t> dydziai = {100000, 1000000};
 
     for (size_t dydis : dydziai)
     {
@@ -394,7 +394,7 @@ void strategiju_analize()
                 failo_skaitymas(vector3, vectorFailas3);
 
                 auto pradzia = std::chrono::steady_clock::now();
-                studentu_rusiavimas_3strat(vector3);
+                studentu_rusiavimas_3strat(vector3, vector3Vargsiukai);
                 auto pabaiga = std::chrono::steady_clock::now();
                 const std::chrono::duration<double> laikas = pabaiga - pradzia;
                 std::cout << "3 strategija (Vector): " << std::fixed << std::setprecision(6)
@@ -437,7 +437,7 @@ void strategiju_analize()
                 failo_skaitymas(list3, listFailas3);
 
                 auto pradzia = std::chrono::steady_clock::now();
-                studentu_rusiavimas_3strat(list3);
+                studentu_rusiavimas_3strat(list3, list3Vargsiukai);
                 auto pabaiga = std::chrono::steady_clock::now();
                 const std::chrono::duration<double> laikas = pabaiga - pradzia;
                 std::cout << "3 strategija (List):   " << std::fixed << std::setprecision(6)
@@ -523,25 +523,29 @@ bool yra_kietiakas(const studentas& A)
 }
 
 void studentu_rusiavimas_3strat(
-    std::vector<studentas>& grupe)
+    std::vector<studentas>& grupe,
+    std::vector<studentas>& vargsiukai)
 {
-    grupe.clear();
+    vargsiukai.clear();
 
     auto riba = std::partition(
         grupe.begin(), grupe.end(), yra_kietiakas);
 
-    grupe.assign(riba, grupe.end());
+    vargsiukai.assign(grupe.begin(), riba);
+    grupe.erase(grupe.begin(), riba);
 }
 
 void studentu_rusiavimas_3strat(
-    std::list<studentas>& grupe)
+    std::list<studentas>& grupe,
+    std::list<studentas>& vargsiukai)
 {
-    grupe.clear();
+    vargsiukai.clear();
 
     auto riba = std::partition(
         grupe.begin(), grupe.end(), yra_kietiakas);
 
-    grupe.assign(riba, grupe.end());
+    vargsiukai.assign(grupe.begin(), riba);
+    grupe.erase(grupe.begin(), riba);
 }
 
 void studentu_isvedimas(const std::string &failoPavadinimas, const std::vector<studentas> &grupe)

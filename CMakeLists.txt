@@ -5,6 +5,8 @@ project(studentu_programa LANGUAGES CXX)
 add_executable(studentu_programa
     pradinis.cpp
     funkcijos.cpp
+    mediana.cpp
+    studentas.cpp
 )
 
 set_target_properties(studentu_programa PROPERTIES
