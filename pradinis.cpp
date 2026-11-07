@@ -7,6 +7,32 @@
 #include <vector>
 #include <algorithm>
 #include <list>
+#include <sstream>
+#include <stdexcept>
+
+studentas sukurti_studenta(
+    const std::string& vardas,
+    const std::string& pavarde,
+    const std::vector<double>& nd,
+    double egz)
+{
+    std::ostringstream eilute;
+    eilute << vardas << ' ' << pavarde;
+
+    for (double pazymys : nd) {
+        eilute << ' ' << pazymys;
+    }
+    eilute << ' ' << egz << '\n';
+
+    std::istringstream srautas(eilute.str());
+    studentas naujas(srautas);
+
+    if (!srautas) {
+        throw std::runtime_error("Klaida: nepavyko sukurti studento");
+    }
+
+    return naujas;
+}
 
 int main()
 {
@@ -15,7 +41,6 @@ int main()
     std::list<studentas> grupe_list;
     int konteineris = 1;
     std::string failo_pavadinimas;
-    studentas A;
     std::cout << "Ar norite sugeneruoti penkis atsitiktinius studentu sarasu failus arba dirbti su jau sukurtais? (t / n): ";
     std::string atsakymas1;
     std::cin >> atsakymas1;
@@ -65,10 +90,11 @@ int main()
                 std::cout << e.what();
                 return 1;
             }
-            std::sort(grupe.begin(), grupe.end(), [](const studentas &A, const studentas &B)
+            std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b)
             {
-                if (A.vardas != B.vardas) return A.vardas < B.vardas;
-                return A.pavarde < B.pavarde;
+                if (a.vardas() != b.vardas())
+                    return a.vardas() < b.vardas();
+                return a.pavarde() < b.pavarde();
             });
 
         }
@@ -103,8 +129,11 @@ int main()
                 }
                 for (int j = 0; j < n; j++)
                 {
+                    std::string vardas;
+                    std::string pavarde;
+                    std::vector<double> nd;
                     std::cout << "Iveskite per tarpa studento varda ir pavarde: ";
-                    std::cin >> A.vardas >> A.pavarde;
+                    std::cin >> vardas >> pavarde;
                     std::cout << "Iveskite semestro namu darbu pazymiu kieki: ";
                     while (!(std::cin >> k) || k <= 0) 
                     {
@@ -124,70 +153,46 @@ int main()
                     {
                         for (int i = 0; i < k; i++)
                         {
+                            double pazymys;
                             std::cout << "Iveskite " << i + 1 << " pazymi: ";
-                            int a;
-                            while (!(std::cin >> a)) 
+                            while (!(std::cin >> pazymys) || pazymys < 1 || pazymys > 10) 
                             {
-                                std::cout << "Klaida: netaisyklingi duomenys, iveskite " << i + 1 << " pazymi (skaiciu): ";
+                                std::cout << "Klaida: netaisyklingi duomenys, iveskite " << i + 1 << " pazymi (skaiciu nuo 1 iki 10): ";
                                 std::cin.clear();
                                 std::cin.ignore(10000, '\n');
                             }
-                            A.nd.push_back(a);
+                            nd.push_back(pazymys);
                         }
+                        double egz;
                         std::cout << "Iveskite egzamino pazymi: ";
-                        while (!(std::cin >> A.egz)) 
+                        while (!(std::cin >> egz) || egz < 1 || egz > 10) 
                             {
                                 std::cout << "Klaida: netaisyklingi duomenys, iveskite egzamino pazymi (skaiciu): ";
                                 std::cin.clear();
                                 std::cin.ignore(10000, '\n');
                             }
-                        A.suma = 0;
-                        for (int p : A.nd) A.suma += p;
-                            A.vidurkis = A.suma / k;
-                        std::sort(A.nd.begin(), A.nd.end());
-                        if (k % 2 == 0)
-                            A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-                        else
-                            A.mediana = A.nd[k / 2];
-                        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-                        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
+                        studentas naujas = sukurti_studenta(vardas, pavarde, nd, egz);
                         if (konteineris == 1)
-                            grupe.push_back(A);
+                            grupe.push_back(naujas);
                         else
-                            grupe_list.push_back(A);
-                        A.pavarde.clear();
-                        A.vardas.clear();
-                        A.nd.clear();
+                            grupe_list.push_back(naujas);
                     }
                     else if (atsakymas4 == "t")
                     {
                         for (int i = 0; i < k; i++)
                         {
-                            int a = rand() % 10 + 1;
-                            A.nd.push_back(a);
-                            A.egz = a;
+                            nd.push_back(rand() % 10 + 1);
                         }
+                        double egz = rand() % 10 + 1;
                         std::cout <<"Sugeneruoti namu darbu pazymiai: ";
-                        for (int paz : A.nd) std::cout << paz << " ";
+                        for (int paz : nd) std::cout << paz << " ";
                         std::cout << "\n";
-                        std::cout <<"Sugeneruotas egzamino pazymys: " << A.egz << "\n";
-                        A.suma = 0;
-                        for (int p : A.nd) A.suma += p;
-                            A.vidurkis = A.suma / k;
-                        std::sort(A.nd.begin(), A.nd.end());
-                        if (k % 2 == 0)
-                            A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-                        else
-                            A.mediana = A.nd[k / 2];
-                        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-                        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
+                        std::cout <<"Sugeneruotas egzamino pazymys: " << egz << "\n";
+                        studentas naujas = sukurti_studenta(vardas, pavarde, nd, egz);
                         if (konteineris == 1)
-                            grupe.push_back(A);
+                            grupe.push_back(naujas);
                         else
-                            grupe_list.push_back(A);
-                        A.pavarde.clear();
-                        A.vardas.clear();
-                        A.nd.clear();
+                            grupe_list.push_back(naujas);
                     }
                 }
             }
@@ -195,10 +200,13 @@ int main()
             {
                 while (true)
                 {
+                    std::string vardas;
+                    std::string pavarde;
+                    std::vector<double> nd;
                     std::cout << "Iveskite per tarpa studento varda ir pavarde (arba iveskite q, jei norite baigti): ";
-                    std::cin >> A.vardas;
-                    if (A.vardas == "q") break;
-                    std::cin >> A.pavarde;
+                    std::cin >> vardas;
+                    if (vardas == "q") break;
+                    std::cin >> pavarde;
                     std::cout << "Iveskite semestro namu darbu pazymiu kieki: ";
                     while (!(std::cin >> k) || k <= 0) 
                     {
@@ -220,69 +228,45 @@ int main()
                         {
                             std::cout << "Iveskite " << i + 1 << " pazymi: ";
                             int a;
-                            while (!(std::cin >> a)) 
+                            while (!(std::cin >> a) || a < 1 || a > 10) 
                             {
                                 std::cout << "Klaida: netaisyklingi duomenys, iveskite " << i + 1 << " pazymi (skaiciu): ";
                                 std::cin.clear();
                                 std::cin.ignore(10000, '\n');
                             }
-                            A.nd.push_back(a);
+                            nd.push_back(a);
                         }
                         std::cout << "Iveskite egzamino pazymi: ";
-                        while (!(std::cin >> A.egz)) 
+                        double egz;
+                        while (!(std::cin >> egz) || egz < 1 || egz > 10) 
                             {
                                 std::cout << "Klaida: netaisyklingi duomenys, iveskite egzamino pazymi (skaiciu): ";
                                 std::cin.clear();
                                 std::cin.ignore(10000, '\n');
                             }
-                        A.suma = 0;
-                        for (int p : A.nd) A.suma += p;
-                            A.vidurkis = A.suma / k;
-                        std::sort(A.nd.begin(), A.nd.end());
-                        if (k % 2 == 0)
-                            A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-                        else
-                            A.mediana = A.nd[k / 2];
-                        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-                        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
+                        studentas naujas = sukurti_studenta(vardas, pavarde, nd, egz);
                         if (konteineris == 1)
-                            grupe.push_back(A);
+                            grupe.push_back(naujas);
                         else
-                            grupe_list.push_back(A);
-                        A.pavarde.clear();
-                        A.vardas.clear();
-                        A.nd.clear();
+                            grupe_list.push_back(naujas);
                     }
                     else if (atsakymas4 == "t")
                     {
                         for (int i = 0; i < k; i++)
                         {
-                            int a = rand() % 10 + 1;
-                            A.nd.push_back(a);
-                            A.egz = a;
+                            nd.push_back(rand() % 10 + 1);
                         }
+                        double egz = rand() % 10 + 1;
                         std::cout <<"Sugeneruoti namu darbu pazymiai: ";
-                        for (int paz : A.nd) std::cout << paz << " ";
+                        for (int paz : nd) std::cout << paz << " ";
                         std::cout << "\n";
                         std::cout <<"Sugeneruotas egzamino pazymys: ";
-                        std::cout << A.egz << "\n";
-                        A.suma = 0;
-                        for (int p : A.nd) A.suma += p;
-                            A.vidurkis = A.suma / k;
-                        std::sort(A.nd.begin(), A.nd.end());
-                        if (k % 2 == 0)
-                            A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-                        else
-                            A.mediana = A.nd[k / 2];
-                        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-                        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
+                        std::cout << egz << "\n";
+                        studentas naujas = sukurti_studenta(vardas, pavarde, nd, egz);
                         if (konteineris == 1)
-                            grupe.push_back(A);
+                            grupe.push_back(naujas);
                         else
-                            grupe_list.push_back(A);
-                        A.pavarde.clear();
-                        A.vardas.clear();
-                        A.nd.clear();
+                            grupe_list.push_back(naujas);
                     }
                 }
             }

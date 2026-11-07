@@ -1,4 +1,3 @@
-// mediana.cpp
 #include "mediana.h"
 
 #include <algorithm>
@@ -7,7 +6,7 @@
 double mediana(std::vector<double> pazymiai)
 {
     if (pazymiai.empty()) {
-        throw std::invalid_argument("Negalima apskaiciuoti medianos, nes pazymiu sarasas tuscias");
+        throw std::invalid_argument("Klaida: negalima apskaiciuoti medianos, nes pazymiu sarasas tuscias");
     }
 
     std::sort(pazymiai.begin(), pazymiai.end());
@@ -24,7 +23,7 @@ double mediana(std::vector<double> pazymiai)
 double vidurkis(std::vector<double> pazymiai)
 {
     if (pazymiai.empty()) {
-        throw std::invalid_argument("Negalima skaiciuoti vidurkio be pazymiu");
+        throw std::invalid_argument("Klaida: negalima skaiciuoti vidurkio be pazymiu");
     }
 
     double suma = 0;

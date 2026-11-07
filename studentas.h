@@ -29,7 +29,4 @@ private:
     std::vector<double> nd_;
 };
 
-bool compare(const studentas& a, const studentas& b);
-bool comparePagalPavarde(const studentas& a, const studentas& b);
-
 #endif
