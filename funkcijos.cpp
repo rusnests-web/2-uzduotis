@@ -21,15 +21,15 @@ void printas(studentas &A, int pasirinkimas)
 {
     if (pasirinkimas == 1)
     {
-        std::cout << std::left << std::setw(13) << A.vardas << std::left << std::setw(15) << A.pavarde << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinisVid << std::left << std::setw(20) << &A << "\n";
+        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << &A << "\n";
     }
     else if (pasirinkimas == 2)
     {
-        std::cout << std::left << std::setw(13) << A.vardas << std::left << std::setw(15) << A.pavarde << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinisMed << std::left << std::setw(20) << &A << "\n";
+        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(mediana) << std::left << std::setw(20) << &A << "\n";
     }
     else if (pasirinkimas == 3)
     {
-        std::cout << std::left << std::setw(13) << A.vardas << std::left << std::setw(15) << A.pavarde << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinisVid << std::left << std::setw(20) << A.galutinisMed << std::left << std::setw(20) << &A << "\n";
+        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << A.galutinis(mediana) << std::left << std::setw(20) << &A << "\n";
     }
 }
 
@@ -73,46 +73,16 @@ void failo_skaitymas(std::vector<studentas> &grupe, string &failo_pavadinimas)
 
     while (std::getline(failas, eilute))
     {
-        std::istringstream eilutes_srautas(eilute);
-        studentas A{};
-        if (!(eilutes_srautas >> A.vardas))
+        if (eilute.empty()) 
         {
             continue;
         }
-        if (!(eilutes_srautas >> A.pavarde))
+        std::istringstream eilutes_srautas(eilute);
+        studentas A(eilutes_srautas);
+        if (!eilutes_srautas)
         {
             throw std::runtime_error("Klaida: netaisyklingi studento duomenys faile");
         }
-
-        A.nd.reserve(nd_kiekis);
-        A.suma = 0;
-        for (int i = 0; i < nd_kiekis; i++)
-        {
-            int paz;
-            if (!(eilutes_srautas >> paz))
-            {
-                throw std::runtime_error("Klaida: netaisyklingi namu darbu pazymiu duomenys faile");
-            }
-            A.nd.push_back(paz);
-            A.suma += paz;
-        }
-        if (!(eilutes_srautas >> A.egz))
-        {
-            throw std::runtime_error("Klaida: netaisyklingi egzamino pazymio duomenys faile");
-        }
-
-        int k = A.nd.size();
-        if (k > 0)
-        {
-            A.vidurkis = A.suma / k;
-            std::sort(A.nd.begin(), A.nd.end());
-            if (k % 2 == 0)
-                A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-            else
-                A.mediana = A.nd[k / 2];
-        }
-        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
         grupe.push_back(A);
     }
 }
@@ -157,46 +127,16 @@ void failo_skaitymas(std::list<studentas> &grupe, std::string &failo_pavadinimas
 
     while (std::getline(failas, eilute))
     {
-        std::istringstream eilutes_srautas(eilute);
-        studentas A{};
-        if (!(eilutes_srautas >> A.vardas))
+        if (eilute.empty()) 
         {
             continue;
         }
-        if (!(eilutes_srautas >> A.pavarde))
+        std::istringstream eilutes_srautas(eilute);
+        studentas A(eilutes_srautas);
+        if (!eilutes_srautas)
         {
             throw std::runtime_error("Klaida: netaisyklingi studento duomenys faile");
         }
-
-        A.nd.reserve(nd_kiekis);
-        A.suma = 0;
-        for (int i = 0; i < nd_kiekis; i++)
-        {
-            int paz;
-            if (!(eilutes_srautas >> paz))
-            {
-                throw std::runtime_error("Klaida: netaisyklingi namu darbu pazymiu duomenys faile");
-            }
-            A.nd.push_back(paz);
-            A.suma += paz;
-        }
-        if (!(eilutes_srautas >> A.egz))
-        {
-            throw std::runtime_error("Klaida: netaisyklingi egzamino pazymio duomenys faile");
-        }
-
-        int k = A.nd.size();
-        if (k > 0)
-        {
-            A.vidurkis = A.suma / k;
-            std::sort(A.nd.begin(), A.nd.end());
-            if (k % 2 == 0)
-                A.mediana = (A.nd[k / 2 - 1] + A.nd[k / 2]) / 2.0;
-            else
-                A.mediana = A.nd[k / 2];
-        }
-        A.galutinisVid = 0.4 * A.vidurkis + 0.6 * A.egz;
-        A.galutinisMed = 0.4 * A.mediana + 0.6 * A.egz;
         grupe.push_back(A);
     }
 }
@@ -450,7 +390,7 @@ void studentu_rusiavimas(const std::vector<studentas> &grupe, std::vector<studen
 {
     for (const studentas &B : grupe)
     {
-        if (B.galutinisVid < 5.0 || B.galutinisMed < 5.0)
+        if (B.galutinis(vidurkis) < 5.0 || B.galutinis(mediana) < 5.0)
         {
             vargsiukai.push_back(B);
         }
@@ -465,7 +405,7 @@ void studentu_rusiavimas(const std::list<studentas> &grupe, std::list<studentas>
 {
     for (const studentas &B : grupe)
     {
-        if (B.galutinisVid < 5.0 || B.galutinisMed < 5.0)
+        if (B.galutinis(vidurkis) < 5.0 || B.galutinis(mediana) < 5.0)
         {
             vargsiukai.push_back(B);
         }
@@ -478,7 +418,7 @@ void studentu_rusiavimas(const std::list<studentas> &grupe, std::list<studentas>
 
 bool yra_vargsiukas(const studentas& A)
 {
-    return A.galutinisVid < 5.0 || A.galutinisMed < 5.0;
+    return A.galutinis(vidurkis) < 5.0 || A.galutinis(mediana) < 5.0;
 }
 
 void studentu_rusiavimas_2strat(
@@ -560,7 +500,7 @@ void studentu_isvedimas(const std::string &failoPavadinimas, const std::vector<s
     outputas << std::string(68, '-') << "\n";
     for (const studentas&A : grupe)
     {
-        outputas << std::left << std::setw(13) << A.vardas << std::left << std::setw(15) << A.pavarde << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinisVid << std::left << std::setw(20) << A.galutinisMed << "\n";
+        outputas << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << A.galutinis(mediana) << "\n";
     }
     outputas.close();
 }
@@ -577,7 +517,7 @@ void studentu_isvedimas(const std::string &failoPavadinimas, const std::list<stu
     outputas << std::string(68, '-') << "\n";
     for (const studentas&A : grupe)
     {
-        outputas << std::left << std::setw(13) << A.vardas << std::left << std::setw(15) << A.pavarde << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinisVid << std::left << std::setw(20) << A.galutinisMed << "\n";
+        outputas << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << A.galutinis(mediana) << "\n";
     }
     outputas.close();
 }
@@ -613,18 +553,18 @@ void isvedimo_rusiavimas(std::list<studentas> &grupe, int pasirinkimas) {
 }
 
 bool pagal_varda(const studentas &A, const studentas &B) {
-    if (A.vardas != B.vardas) return A.vardas < B.vardas;
-    return A.pavarde < B.pavarde;
+    if (A.vardas() != B.vardas()) return A.vardas() < B.vardas();
+    return A.pavarde() < B.pavarde();
 }
 bool pagal_pavarde(const studentas &A, const studentas &B) {
-    if (A.pavarde != B.pavarde) return A.pavarde < B.pavarde;
-    return A.vardas < B.vardas;
+    if (A.pavarde() != B.pavarde()) return A.pavarde() < B.pavarde();
+    return A.vardas() < B.vardas();
 }
 bool pagal_galutinisVid(const studentas &A, const studentas &B)
 {
-    return A.galutinisVid < B.galutinisVid;
+    return A.galutinis(vidurkis) < B.galutinis(vidurkis);
 }
 bool pagal_galutinisMed(const studentas &A, const studentas &B)
 {
-    return A.galutinisMed < B.galutinisMed;
+    return A.galutinis(mediana) < B.galutinis(mediana);
 }

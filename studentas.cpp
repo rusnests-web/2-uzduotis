@@ -8,7 +8,7 @@ studentas::studentas(std::istream& is) : egzaminas_(0)
     readStudent(is);
 }
 
-double studentas::galBalas(
+double studentas::galutinis(
     double (*skaiciuoti)(std::vector<double>)
 ) const
 {

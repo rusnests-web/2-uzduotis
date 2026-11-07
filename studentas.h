@@ -16,7 +16,7 @@ public:
     std::string vardas() const { return vardas_; }
     std::string pavarde() const { return pavarde_; }
 
-    double galBalas(
+    double galutinis(
         double (*skaiciuoti)(std::vector<double>) = mediana
     ) const;
 
