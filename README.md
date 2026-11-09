@@ -88,7 +88,7 @@ Spartos analizes testo vykdymo pavyzdys:
 
 ![Spartos analizes testo vykdymo pavyzdys](nuotraukos/test_pvz.png)
 
-Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus:
+Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus, naudojant tuos pacius sugeneruotus failus:
 
 ### Programos sparta (Vector):
 
@@ -128,7 +128,7 @@ Studentu dalijimo strategiju spartos analizes vykdymo pavyzdys:
 
 ![Strategiju testo vykdymo pavyzdys](nuotraukos/strat_test_pvz.png)
 
-Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus:
+Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus, naudojant tuos pacius sugeneruotus failus:
 
 ### 3 studentu dalijimo strategiju sparta (Vector):
 
@@ -153,3 +153,13 @@ Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***v
 |10000000 irasu (17 ND)|6.355367|4.551922|5.734487|
 ---
 **Isvada:** Siuo atveju dominuojancias tendencijas izvelgti sunkiau, taciau beveik visu testu (isskyrus didziausio failo) metu leciausia yra 3 strategija, t.y. 2 strategija su Partition metodu (priesingai nei Vector atveju), o sparciausia - 2 strategija.
+
+## Programos spartos analize naudojant Class tipo studentus
+
+Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector atveju, naudojant Class tipo studentus, apskaiciuoti atlikus tris testus su tais paciais sugeneruotais 100000 ir 1000000 irasu dydziu studentu failais:
+
+### Programos sparta (Vector su Class tipo studentais):
+
+|Failas|Nuskaitymas, s|Studentu dalijimas, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
+|------|--------------|---------------------|-------------------------------------|----------------------|---------------------|----------|
+|100000 irasu (10 ND)|
