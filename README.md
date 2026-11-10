@@ -88,7 +88,7 @@ Spartos analizes testo vykdymo pavyzdys:
 
 ![Spartos analizes testo vykdymo pavyzdys](nuotraukos/test_pvz.png)
 
-Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus, naudojant tuos pacius sugeneruotus failus:
+Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir List atvejais, apskaiciuoti atlikus tris testus, naudojant tuos pacius sugeneruotus failus (rusiuota pagal galutinio balo, apskaiciuoto pagal vidurki, didejimo tvarka):
 
 ### Programos sparta (Vector):
 
@@ -156,10 +156,25 @@ Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***v
 
 ## Programos spartos analize naudojant Class tipo studentus
 
-Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector atveju, naudojant Class tipo studentus, apskaiciuoti atlikus tris testus su tais paciais sugeneruotais 100000 ir 1000000 irasu dydziu studentu failais:
+Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector atveju, naudojant Class tipo studentus, apskaiciuoti atlikus tris testus su tais paciais sugeneruotais 100000 ir 1000000 irasu dydziu studentu failais (rusiuota pagal galutinio balo, apskaiciuoto pagal vidurki, didejimo tvarka):
 
-### Programos sparta (Vector su Class tipo studentais):
+### Programos sparta (Vector su Class tipo studentais ir 3 dalijimo strategija):
 
-|Failas|Nuskaitymas, s|Studentu dalijimas, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
-|------|--------------|---------------------|-------------------------------------|----------------------|---------------------|----------|
-|100000 irasu (10 ND)|
+|Failas|Nuskaitymas, s|Studentu dalijimas naudojant 3 strategija, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
+|------|--------------|--------------------------------------------|-------------------------------------|----------------------|---------------------|----------|
+|100000 irasu (10 ND)|6.296003|0.197057|2.787434|2.275643|2.451675|14.007812|
+|1000000 irasu (19 ND)|107.149467|2.755014|29.307767|19.719642|23.030106|181.961997|
+
+**Isvada:** Siuo atveju sparciausiai vykdoma studentu dalijimo funkcija, o leciausiai – nuskaitymo. Bendras programos veikimo laikas yra zymiai (keliolika kartu) ilgesnis nei naudojant Struct tipo studentus.
+
+Norint isbandyti kompiliatoriaus optimizavimo lygius, naudokite siuos flagus:
+
+g++ -std=c++11 -O1 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O1.exe
+
+g++ -std=c++11 -O2 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O2.exe
+
+g++ -std=c++11 -O3 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O3.exe
+
+.\studentai_O1.exe
+.\studentai_O2.exe
+.\studentai_O3.exe

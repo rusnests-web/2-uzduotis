@@ -146,7 +146,7 @@ void failu_generavimas(const string& failo_pavadinimas, size_t studentu_skaicius
 
 void spartos_analize()
 {
-    std::vector<size_t> dydziai = {100000, 1000000};
+    std::vector<size_t> dydziai = {1000, 10000, 100000, 1000000, 10000000};
     std::random_device seed;
     std::mt19937 rng(seed());
     std::uniform_int_distribution<int> ndDist(7, 20);
@@ -191,28 +191,28 @@ void spartos_analize()
             failo_skaitymas(grupe, failo_pavadinimas);
             auto t2 = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> t_skaitymo = t2 - t1;
-            std::cout << dydis << " irasu failo skaitymo laikas (Vector): " << std::fixed << std::setprecision(6) << t_skaitymo.count() << "\n";
+            //std::cout << dydis << " irasu failo skaitymo laikas (Vector): " << std::fixed << std::setprecision(6) << t_skaitymo.count() << "\n";
             auto t3 = std::chrono::high_resolution_clock::now();
             studentu_rusiavimas_3strat(grupe, vargsiukai);
             auto t4 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_dalijimo = t4 - t3;
-            std::cout << dydis << " irasu failo dalijimo i dvi grupes laikas (Vector): " << std::fixed << std::setprecision(6) << t_dalijimo.count() << "\n";
+            //std::cout << dydis << " irasu failo dalijimo i dvi grupes laikas (Vector): " << std::fixed << std::setprecision(6) << t_dalijimo.count() << "\n";
             auto t5 = std::chrono::high_resolution_clock::now();
             isvedimo_rusiavimas(vargsiukai, pasirinkimas);
             isvedimo_rusiavimas(grupe, pasirinkimas);
             auto t6 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_rusiavimo = t6 - t5;
-            std::cout << dydis << " irasu failo rusiavimo didejimo tvarka su sort funkcija laikas (Vector): " << std::fixed << std::setprecision(6) << t_rusiavimo.count() << "\n";
+            //std::cout << dydis << " irasu failo rusiavimo didejimo tvarka su sort funkcija laikas (Vector): " << std::fixed << std::setprecision(6) << t_rusiavimo.count() << "\n";
             auto t7 = std::chrono::high_resolution_clock::now();
             studentu_isvedimas(varg, vargsiukai);
             auto t8 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_vargsiuku = t8 - t7;
-            std::cout << dydis << " irasu vargsiuku isvedimo laikas (Vector): " << std::fixed << std::setprecision(6) << t_vargsiuku.count() << "\n";
+            //std::cout << dydis << " irasu vargsiuku isvedimo laikas (Vector): " << std::fixed << std::setprecision(6) << t_vargsiuku.count() << "\n";
             auto t9 = std::chrono::high_resolution_clock::now();
             studentu_isvedimas(kiet, grupe);
             auto t10 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_kietiaku = t10 - t9;
-            std::cout << dydis << " irasu kietiaku isvedimo laikas (Vector): " << std::fixed << std::setprecision(6) << t_kietiaku.count() << "\n";
+            //std::cout << dydis << " irasu kietiaku isvedimo laikas (Vector): " << std::fixed << std::setprecision(6) << t_kietiaku.count() << "\n";
             std::chrono::duration<double> is_viso = t_skaitymo + t_dalijimo + t_rusiavimo + t_vargsiuku + t_kietiaku;
             std::cout << dydis << " irasu testo laikas (Vector): " << std::fixed << std::setprecision(6) << is_viso.count() << "\n";
         }
@@ -226,28 +226,28 @@ void spartos_analize()
             failo_skaitymas(grupe, failo_pavadinimas);
             auto t2 = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> t_skaitymo = t2 - t1;
-            std::cout << dydis << " irasu failo skaitymo laikas (List): " << std::fixed << std::setprecision(6) << t_skaitymo.count() << "\n";
+            //std::cout << dydis << " irasu failo skaitymo laikas (List): " << std::fixed << std::setprecision(6) << t_skaitymo.count() << "\n";
             auto t3 = std::chrono::high_resolution_clock::now();
             studentu_rusiavimas_3strat(grupe, vargsiukai);
             auto t4 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_dalijimo = t4 - t3;
-            std::cout << dydis << " irasu failo dalijimo i dvi grupes laikas (List): " << std::fixed << std::setprecision(6) << t_dalijimo.count() << "\n";
+            //std::cout << dydis << " irasu failo dalijimo i dvi grupes laikas (List): " << std::fixed << std::setprecision(6) << t_dalijimo.count() << "\n";
             auto t5 = std::chrono::high_resolution_clock::now();
             isvedimo_rusiavimas(vargsiukai, pasirinkimas);
             isvedimo_rusiavimas(grupe, pasirinkimas);
             auto t6 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_rusiavimo = t6 - t5;
-            std::cout << dydis << " irasu failo rusiavimo didejimo tvarka su sort funkcija laikas (List): " << std::fixed << std::setprecision(6) << t_rusiavimo.count() << "\n";
+            //std::cout << dydis << " irasu failo rusiavimo didejimo tvarka su sort funkcija laikas (List): " << std::fixed << std::setprecision(6) << t_rusiavimo.count() << "\n";
             auto t7 = std::chrono::high_resolution_clock::now();
             studentu_isvedimas(varg, vargsiukai);
             auto t8 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_vargsiuku = t8 - t7;
-            std::cout << dydis << " irasu vargsiuku isvedimo laikas (List): " << std::fixed << std::setprecision(6) << t_vargsiuku.count() << "\n";
+            //std::cout << dydis << " irasu vargsiuku isvedimo laikas (List): " << std::fixed << std::setprecision(6) << t_vargsiuku.count() << "\n";
             auto t9 = std::chrono::high_resolution_clock::now();
             studentu_isvedimas(kiet, grupe);
             auto t10 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> t_kietiaku = t10 - t9;
-            std::cout << dydis << " irasu kietiaku isvedimo laikas (List): " << std::fixed << std::setprecision(6) << t_kietiaku.count() << "\n";
+            //std::cout << dydis << " irasu kietiaku isvedimo laikas (List): " << std::fixed << std::setprecision(6) << t_kietiaku.count() << "\n";
             std::chrono::duration<double> is_viso = t_skaitymo + t_dalijimo + t_rusiavimo + t_vargsiuku + t_kietiaku;
             std::cout << dydis << " irasu testo laikas (List): " << std::fixed << std::setprecision(6) << is_viso.count() << "\n\n";
         }    
