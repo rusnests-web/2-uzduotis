@@ -219,6 +219,32 @@ g++ -std=c++11 -O3 '-Wl,--large-address-aware' .\pradinis.cpp .\funkcijos.cpp .\
 
 Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pacius sugeneruotus failus, Class tipo studentus ir atlikus tris testus (rusiuota pagal galutinio balo, apskaiciuoto pagal vidurki, didejimo tvarka):
 
+### -O1:
+
+|exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
+|---------------|-------------------|-----------------|
+|1000 irasu (10 ND)|0.105823|0.123510|
+|10000 irasu (7 ND)|0.685453|0.715875|
+|100000 irasu (10 ND)|9.101261|9.497077|
+|1000000 irasu (19 ND)|133.412286|132.333844|
+|10000000 irasu (17 ND)|1113.429239|1102.799795|
+---
+**Isvada:** Programa beveik visais atvejais (isskyrus du didziausius failus) yra spartesne su Vector tipo konteineriu, taciau bendrai yra net kelis kartus letesne nei Struct tipo studentu atveju.
+
+### -O2:
+
+|exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
+|---------------|-------------------|-----------------|
+|1000 irasu (10 ND)|0.098539|0.109100|
+|10000 irasu (7 ND)|0.804540|0.680534|
+|100000 irasu (10 ND)|10.393875|9.660976|
+|1000000 irasu (19 ND)|142.919106|133.480459|
+|10000000 irasu (17 ND)|1122.266712|1106.673886|
+---
+**Isvada:** Palyginus su -O1, cia beveik visais atvejais (isskyrus maziausia faila) programa yra spartesne su List tipo konteineriu, taciau bendrai yra net kelis kartus letesne nei Struct tipo studentu atveju. Be to, palyginus su -O1, cia didesnis programos trukmes skirtumas Vector atveju nei List.
+
+### -O3:
+
 |exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
 |---------------|-------------------|-----------------|
 |1000 irasu (10 ND)|
