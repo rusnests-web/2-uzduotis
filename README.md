@@ -53,9 +53,15 @@ cmake --build build --config Release
 
 Vykdomojo failo vieta priklauso nuo CMake generatoriaus. Priklausomai nuo jo, projekto root direktorijoje iveskite:
 
-* **MinGW Makefiles generatoriui:** build/studentu_programa.exe
+* **MinGW Makefiles generatoriui:**
+```
+build/studentu_programa.exe
+```
 
-* **Visual Studio generatoriui:** build/Release/studentu_programa.exe 
+* **Visual Studio generatoriui:**
+```
+build/Release/studentu_programa.exe 
+```
 
 ## Testavimo aplinka
 
@@ -164,17 +170,55 @@ Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector at
 |------|--------------|--------------------------------------------|-------------------------------------|----------------------|---------------------|----------|
 |100000 irasu (10 ND)|6.296003|0.197057|2.787434|2.275643|2.451675|14.007812|
 |1000000 irasu (19 ND)|107.149467|2.755014|29.307767|19.719642|23.030106|181.961997|
+---
 
 **Isvada:** Siuo atveju sparciausiai vykdoma studentu dalijimo funkcija, o leciausiai – nuskaitymo. Bendras programos veikimo laikas yra zymiai (keliolika kartu) ilgesnis nei naudojant Struct tipo studentus.
 
-Norint isbandyti kompiliatoriaus optimizavimo lygius, naudokite siuos flagus:
+Noredami isbandyti kompiliatoriaus optimizavimo lygius, projekto root direktorijoje naudokite siuos flagus:
 
+* **-O1:**
+```
 g++ -std=c++11 -O1 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O1.exe
 
+.\studentai_O1.exe
+```
+* **-O2:**
+```
 g++ -std=c++11 -O2 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O2.exe
 
+.\studentai_O2.exe
+```
+* **-O3:**
+```
 g++ -std=c++11 -O3 .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O3.exe
 
-.\studentai_O1.exe
-.\studentai_O2.exe
 .\studentai_O3.exe
+```
+**Pastaba:** jei iskiltu problemu del atminties trukumo, gali padeti zemiau pateiktos komandos su '-Wl,--large-address-aware' flagais:
+
+* **-O1:**
+```
+g++ -std=c++11 -O1 '-Wl,--large-address-aware' .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O1.exe
+
+.\studentai_O1.exe
+```
+* **-O2:**
+```
+g++ -std=c++11 -O2 '-Wl,--large-address-aware' .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O2.exe
+
+.\studentai_O2.exe
+```
+* **-O3:**
+```
+g++ -std=c++11 -O3 '-Wl,--large-address-aware' .\pradinis.cpp .\funkcijos.cpp .\studentas.cpp .\mediana.cpp -o .\studentai_O3.exe
+
+.\studentai_O3.exe
+```
+
+## Programos spartos analize naudojant kompiliatoriaus optimizavimo flagus
+
+Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pacius sugeneruotus failus, Class tipo studentus ir atlikus tris testus (rusiuota pagal galutinio balo, apskaiciuoto pagal vidurki, didejimo tvarka):
+
+|exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
+|---------------|-------------------|-----------------|
+|1000 irasu (10 ND)|
