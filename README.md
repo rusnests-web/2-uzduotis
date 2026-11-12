@@ -8,7 +8,9 @@
 
 * **v0.3:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp* ir *funkcijos.h*) ir naujas nuotrauku albumas *nuotraukos*, naudojamas programos rezultatu dokumentacijai.
 
-* **v1.0:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *funkcijos.h* ir albumas *nuotraukos*).
+* **v1.0:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *funkcijos.h* ir albumas *nuotraukos*) ir naujas *CMakeLists.txt* failas.
+
+* **v1.1:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *funkcijos.h* failai) ir prideti nauji failai *mediana.cpp* (medianos ir vidurkio skaiciavimo funkciju implementacija), antrastinis failas *mediana.h* ir *studentas.cpp* su Class tipo studento implementacija.
 
 ## Naudojimosi instrukcija
 
@@ -247,4 +249,10 @@ Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pac
 
 |exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
 |---------------|-------------------|-----------------|
-|1000 irasu (10 ND)|
+|1000 irasu (10 ND)|0.100553|0.099134|
+|10000 irasu (7 ND)|0.660687|0.713337|
+|100000 irasu (10 ND)|8.275639|7.928190|
+|1000000 irasu (19 ND)|152.055659|151.822027|
+|10000000 irasu (17 ND)|1227.615319|1197.330483|
+---
+**Isvada:** Siuo atveju ivertinti kurio nors konteinerio pranasuma yra sunku, taciau programos trukmes skirtumas palyginus su -O2 cia yra zenkliai didesnis List atveju nei Vector atveju. Kaip ir pries tai aptartais optimizavimo lygiu atvejais, Class tipo studentu atveju programa trunka zymiai ilgiau nei su Struct tipo studentais.
