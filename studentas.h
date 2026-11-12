@@ -12,6 +12,11 @@ class studentas {
 public:
     studentas() : egzaminas_(0) {}
     explicit studentas(std::istream& is);
+    studentas(const studentas&) = default;
+    studentas& operator=(const studentas&) = default;
+    studentas(studentas&&) = default;
+    studentas& operator=(studentas&&) = default;
+    ~studentas();
 
     std::string vardas() const { return vardas_; }
     std::string pavarde() const { return pavarde_; }
