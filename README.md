@@ -82,7 +82,7 @@ Studentu saraso failo pavyzdys:
 ### Failu kurimo laikas:
 
 |Failas|Laikas (s)|
-|------|----------|
+|---|---|
 |1000 irasu (10 ND)|0.016536|
 |10000 irasu (7 ND)|0.125006|
 |100000 irasu (10 ND)|0.827061|
@@ -101,7 +101,7 @@ Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir
 ### Programos sparta (Vector):
 
 |Failas|Nuskaitymas, s|Studentu dalijimas, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
-|------|--------------|---------------------|-------------------------------------|----------------------|---------------------|----------|
+|---|---|---|---|---|---|---|
 |1000 irasu (10 ND)|0.006688|0.0012397|0.002567|0.0040737|0.011083|0.025651|
 |10000 irasu (7 ND)|0.056445|0.010307|0.041292|0.056131|0.039894|0.204068|
 |100000 irasu (10 ND)|0.440908|0.099296|0.418183|0.348743|0.459762|1.766892|
@@ -113,7 +113,7 @@ Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector ir
 ### Programos sparta (List):
 
 |Failas|Nuskaitymas, s|Studentu dalijimas, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
-|------|--------------|---------------------|-------------------------------------|----------------------|---------------------|----------|
+|---|---|---|---|---|---|---|
 |1000 irasu (10 ND)|0.009657|0.000831|0.000864|0.005196|0.004801|0.021349|
 |10000 irasu (7 ND)|0.060239|0.006945|0.007101|0.043280|0.042421|0.159986|
 |100000 irasu (10 ND)|0.682869|0.074323|0.125628|0.394981|0.454135|1.731935|
@@ -141,7 +141,7 @@ Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***v
 ### 3 studentu dalijimo strategiju sparta (Vector):
 
 |Failas|1 strategija, s|2 strategija, s|3 strategija, s|
-|------|---------------|---------------|---------------|
+|---|---|---|---|
 |1000 irasu (10 ND)|0.000811|0.000495|0.000355|
 |10000 irasu (7 ND)|0.008551|0.005814|0.003515|
 |100000 irasu (10 ND)|0.060238|0.051621|0.034660|
@@ -153,7 +153,7 @@ Zemiau pateikiami 3 studentu dalijimo strategiju spartos analizes rezultatu ***v
 ### 3 studentu dalijimo strategiju sparta (List):
 
 |Failas|1 strategija, s|2 strategija, s|3 strategija, s|
-|------|---------------|---------------|---------------|
+|---|---|---|---|
 |1000 irasu (10 ND)|0.000874|0.000348|0.001098|
 |10000 irasu (7 ND)|0.004945|0.003822|0.005035|
 |100000 irasu (10 ND)|0.052069|0.041634|0.054542|
@@ -169,7 +169,7 @@ Zemiau pateikiami programos spartos analizes rezultatu ***vidurkiai*** Vector at
 ### Programos sparta (Vector su Class tipo studentais ir 3 dalijimo strategija):
 
 |Failas|Nuskaitymas, s|Studentu dalijimas naudojant 3 strategija, s|Rusiavimas didejimo tvarka su sort, s|Vargsiuku isvedimas, s|Kietiaku isvedimas, s|Is viso, s|
-|------|--------------|--------------------------------------------|-------------------------------------|----------------------|---------------------|----------|
+|---|---|---|---|---|---|---|
 |100000 irasu (10 ND)|6.296003|0.197057|2.787434|2.275643|2.451675|14.007812|
 |1000000 irasu (19 ND)|107.149467|2.755014|29.307767|19.719642|23.030106|181.961997|
 ---
@@ -224,7 +224,7 @@ Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pac
 ### -O1:
 
 |exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
-|---------------|-------------------|-----------------|
+|---|---|---|
 |1000 irasu (10 ND)|0.105823|0.123510|
 |10000 irasu (7 ND)|0.685453|0.715875|
 |100000 irasu (10 ND)|9.101261|9.497077|
@@ -236,7 +236,7 @@ Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pac
 ### -O2:
 
 |exe failo dydis|Greitis, s (Vector)|Greitis, s (List)|
-|---------------|-------------------|-----------------|
+|---|---|---|
 |1000 irasu (10 ND)|0.098539|0.109100|
 |10000 irasu (7 ND)|0.804540|0.680534|
 |100000 irasu (10 ND)|10.393875|9.660976|
@@ -256,3 +256,27 @@ Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pac
 |10000000 irasu (17 ND)|1227.615319|1197.330483|
 ---
 **Isvada:** Siuo atveju ivertinti kurio nors konteinerio pranasuma yra sunku, taciau programos trukmes skirtumas palyginus su -O2 cia yra zenkliai didesnis List atveju nei Vector atveju. Kaip ir pries tai aptartais optimizavimo lygiu atvejais, Class tipo studentu atveju programa trunka zymiai ilgiau nei su Struct tipo studentais.
+
+## v1.2 – Studentas klases perdengti metodai
+
+### Rule of Three
+
+**Destruktorius** *~studentas()* – sunaikina objekta;
+
+**Kopijavimo konstruktorius** – sukuria nauja objekta, nukopijuodamas studento varda, pavarde, namu darbu ir egzamino pazymi;
+
+**Kopijavimo priskyrimo operatorius** – nukopijuoja duomenis i jau egzistuojanti objekta.
+
+### Duomenu ivedimo ir isvedimo metodai
+
+|Scenarijus|Metodai arba funkcijos|Aprasymas|
+|---|---|---|
+|Ivedimas rankiniu budu|`sukurti_studenta`, `studentas(std::istream&)`, `skaityti_studenta`|Naudotojas iveda varda, pavarde ir pazymius, duomenys perduodami *studentas* objektui|
+|Atsitiktiniu pazymiu generavimas|`sukurti_studenta`, `skaityti_studenta`|Programa sugeneruoja namu darbu ir egzamino pazymius, tada sukuria studento objekta|
+|Ivedimas is failo| `failo_skaitymas`, `studentas(std::istream&)`, `skaityti_studenta`|Programa praleidzia failo antraste ir kiekviena studento duomenu eilute perduoda nuskaityti objektui|
+|Ivedimas per *operator>>*| `operator>>`|Kviesdamas funkcija *skaityti_studenta*, nuskaito viena studento eilute|
+|Isvedimas i ekrana|`printas(std::cout, &studentas, ...)`|Studentas spausdinamas per pointeri. Adresas rodomas pagal pasirinkta programos scenariju|
+|Isvedimas i faila| `studentu_isvedimas`|I rezultatu faila irasomas studento vardas, pavarde ir apskaiciuoti galutiniai balai|
+|Isvedimas per *operator<<*| `operator<<`|Studentas isvedamas kaip vardo, pavardes, namu darbu ir egzamino pazymiu irasas|
+
+**Pastaba:** skaitant is vartotojo pasirinkto failo ir rezultatu failuose objekto adresas nerodomas. Ivedant duomenis rankiniu budu arba juos generuojant, ekrano isvedime objekto adresas rodomas.
