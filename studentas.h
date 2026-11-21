@@ -4,18 +4,17 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "mediana.h"
 
-double vidurkis(std::vector<double> pazymiai);
-
-class studentas {
+class studentas
+{
 public:
     studentas() : egzaminas_(0) {}
     explicit studentas(std::istream& is);
-    studentas(const studentas&) = default;
-    studentas& operator=(const studentas&) = default;
-    studentas(studentas&&) = default;
-    studentas& operator=(studentas&&) = default;
+
+    studentas(const studentas& other);
+    studentas& operator=(const studentas& other);
     ~studentas();
 
     std::string vardas() const { return vardas_; }

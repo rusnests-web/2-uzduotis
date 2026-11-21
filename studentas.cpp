@@ -8,6 +8,8 @@ studentas::studentas(std::istream& is) : egzaminas_(0)
     readStudent(is);
 }
 
+studentas::studentas(const studentas& other) = default;
+studentas& studentas::operator=(const studentas& other) = default;
 studentas::~studentas() = default;
 
 double studentas::galutinis(
