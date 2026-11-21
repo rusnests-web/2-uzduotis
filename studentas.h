@@ -25,6 +25,7 @@ public:
     ) const;
 
     std::istream& skaityti_studenta(std::istream& is);
+    friend std::ostream& operator<<(std::ostream& os, const studentas& s);
 
 private:
     std::string vardas_;
@@ -32,5 +33,8 @@ private:
     double egzaminas_;
     std::vector<double> nd_;
 };
+
+std::istream& operator>>(std::istream& is, studentas& s);
+std::ostream& operator<<(std::ostream& os, const studentas& s);
 
 #endif

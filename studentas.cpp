@@ -52,3 +52,18 @@ std::istream& studentas::skaityti_studenta(std::istream& is)
 
     return is;
 }
+
+std::istream& operator>>(std::istream& is, studentas& s)
+{
+    return s.skaityti_studenta(is);
+}
+
+std::ostream& operator<<(std::ostream& os, const studentas& s)
+{
+    os << s.vardas_ << ' ' << s.pavarde_;
+
+    for (double pazymys : s.nd_)
+        os << ' ' << pazymys;
+
+    return os << ' ' << s.egzaminas_;
+}

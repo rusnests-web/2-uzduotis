@@ -17,20 +17,22 @@ using std::string;
 using std::vector;
 using std::list;
 
-void printas(studentas &A, int pasirinkimas)
+void printas(std::ostream& out, const studentas* s, int pasirinkimas)
 {
-    if (pasirinkimas == 1)
-    {
-        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << &A << "\n";
+    out << std::left << std::setw(13) << s->vardas()
+        << std::setw(15) << s->pavarde()
+        << std::fixed << std::setprecision(2);
+
+    if (pasirinkimas == 1) {
+        out << std::setw(20) << s->galutinis(vidurkis);
+    } else if (pasirinkimas == 2) {
+        out << std::setw(20) << s->galutinis(mediana);
+    } else {
+        out << std::setw(20) << s->galutinis(vidurkis)
+            << std::setw(20) << s->galutinis(mediana);
     }
-    else if (pasirinkimas == 2)
-    {
-        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(mediana) << std::left << std::setw(20) << &A << "\n";
-    }
-    else if (pasirinkimas == 3)
-    {
-        std::cout << std::left << std::setw(13) << A.vardas() << std::left << std::setw(15) << A.pavarde() << std::left << std::setw(20) << std::fixed << std::setprecision(2) << A.galutinis(vidurkis) << std::left << std::setw(20) << A.galutinis(mediana) << std::left << std::setw(20) << &A << "\n";
-    }
+
+    out << std::setw(20) << s << '\n';
 }
 
 void failo_skaitymas(std::vector<studentas> &grupe, string &failo_pavadinimas)
