@@ -6,7 +6,7 @@
 #include <vector>
 #include <list>
 
-void printas(std::ostream& out, const studentas* s, int pasirinkimas);
+void printas(std::ostream& out, const studentas* s, int pasirinkimas, bool rodytiAdresa);
 void failo_skaitymas(std::vector<studentas>& grupe, std::string& failo_pavadinimas);
 void failo_skaitymas(std::list<studentas>& grupe, std::string& failo_pavadinimas);
 void failu_generavimas(const std::string& failo_pavadinimas, size_t studentu_skaicius, size_t nd_kiekis);

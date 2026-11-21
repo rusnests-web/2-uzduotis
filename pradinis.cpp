@@ -40,6 +40,7 @@ int main()
     std::vector<studentas> grupe;
     std::list<studentas> grupe_list;
     int konteineris = 1;
+    bool rodytiAdresa = true;
     std::string failo_pavadinimas;
     std::cout << "Ar norite sugeneruoti penkis atsitiktinius studentu sarasu failus arba dirbti su jau sukurtais? (t / n): ";
     std::string atsakymas1;
@@ -81,6 +82,7 @@ int main()
         }
         if (atsakymas2 == "t")
         {
+            rodytiAdresa = false;
             try
             {
                 failo_skaitymas(grupe, failo_pavadinimas);
@@ -286,25 +288,34 @@ int main()
     std::cout << "Studentu duomenys (" << (konteineris == 2 ? "List" : "Vector") << "): \n";
     if (pasirinkimas == 1)
     {
-        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Vid.)" << std::left << std::setw(20) << "Objekto adresas" << "\n";
-        std::cout << std::string(68, '-') << "\n";
+        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Vid.)";
+        if (rodytiAdresa) std::cout << std::left << std::setw(20) << "Objekto adresas";
+        std::cout << "\n" << std::string(48 + (rodytiAdresa ? 20 : 0), '-') << "\n";
     }
     else if (pasirinkimas == 2)
     {
-        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Med.)" << std::left << std::setw(20) << "Objekto adresas" << "\n";
-        std::cout << std::string(68, '-') << "\n";
+        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Med.)";
+        if (rodytiAdresa) std::cout << std::left << std::setw(20) << "Objekto adresas";
+        std::cout << "\n" << std::string(48 + (rodytiAdresa ? 20 : 0), '-') << "\n";
     }
     else if (pasirinkimas == 3)
     {
-        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Vid.)" << std::left << std::setw(20) << "Galutinis (Med.)" << std::left << std::setw(20) << "Objekto adresas" << "\n";
-        std::cout << std::string(88, '-') << "\n";
+        std::cout << std::left << std::setw(13) << "Vardas" << std::left << std::setw(15) << "Pavarde" << std::left << std::setw(20) << "Galutinis (Vid.)" << std::left << std::setw(20) << "Galutinis (Med.)";
+        if (rodytiAdresa) std::cout << std::left << std::setw(20) << "Objekto adresas";
+        std::cout << "\n" << std::string(68 + (rodytiAdresa ? 20 : 0), '-') << "\n";
     }
     if (konteineris == 2)
     {
-        for (studentas &B : grupe_list) printas(B, pasirinkimas);
+        for (const studentas& B : grupe_list)
+        {
+            printas(std::cout, &B, pasirinkimas, rodytiAdresa);
+        }
     }
     else
     {
-        for (studentas &B : grupe) printas(B, pasirinkimas);
+        for (const studentas &B : grupe)
+        {
+            printas(std::cout, &B, pasirinkimas, rodytiAdresa);
+        }
     }
 }

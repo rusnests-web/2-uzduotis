@@ -17,7 +17,7 @@ using std::string;
 using std::vector;
 using std::list;
 
-void printas(std::ostream& out, const studentas* s, int pasirinkimas)
+void printas(std::ostream& out, const studentas* s, int pasirinkimas, bool rodytiAdresa)
 {
     out << std::left << std::setw(13) << s->vardas()
         << std::setw(15) << s->pavarde()
@@ -32,7 +32,10 @@ void printas(std::ostream& out, const studentas* s, int pasirinkimas)
             << std::setw(20) << s->galutinis(mediana);
     }
 
-    out << std::setw(20) << s << '\n';
+    if (rodytiAdresa)
+        out << std::setw(20) << s;
+
+    out << '\n';
 }
 
 void failo_skaitymas(std::vector<studentas> &grupe, string &failo_pavadinimas)
