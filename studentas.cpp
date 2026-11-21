@@ -5,7 +5,7 @@
 
 studentas::studentas(std::istream& is) : egzaminas_(0)
 {
-    readStudent(is);
+    skaityti_studenta(is);
 }
 
 studentas::studentas(const studentas& other) = default;
@@ -19,30 +19,33 @@ double studentas::galutinis(
     return 0.4 * skaiciuoti(nd_) + 0.6 * egzaminas_;
 }
 
-std::istream& studentas::readStudent(std::istream& is)
+std::istream& studentas::skaityti_studenta(std::istream& is)
 {
     std::string eilute;
-    if (!std::getline(is, eilute)) {
+    if (!std::getline(is, eilute))
         return is;
-    }
 
     std::istringstream eilutesSrautas(eilute);
-    if (!(eilutesSrautas >> vardas_ >> pavarde_)) {
+    std::string vardas;
+    std::string pavarde;
+
+    if (!(eilutesSrautas >> vardas >> pavarde)) {
         is.setstate(std::ios::failbit);
         return is;
     }
 
     std::vector<double> pazymiai;
     double pazymys;
-    while (eilutesSrautas >> pazymys) {
+    while (eilutesSrautas >> pazymys)
         pazymiai.push_back(pazymys);
-    }
 
-    if (pazymiai.empty()) {
+    if (!eilutesSrautas.eof() || pazymiai.size() < 2) {
         is.setstate(std::ios::failbit);
         return is;
     }
 
+    vardas_ = std::move(vardas);
+    pavarde_ = std::move(pavarde);
     egzaminas_ = pazymiai.back();
     pazymiai.pop_back();
     nd_ = std::move(pazymiai);

@@ -24,7 +24,7 @@ public:
         double (*skaiciuoti)(std::vector<double>) = mediana
     ) const;
 
-    std::istream& readStudent(std::istream& is);
+    std::istream& skaityti_studenta(std::istream& is);
 
 private:
     std::string vardas_;
