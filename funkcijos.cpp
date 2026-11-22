@@ -17,20 +17,9 @@ using std::string;
 using std::vector;
 using std::list;
 
-void printas(std::ostream& out, const studentas* s, int pasirinkimas, bool rodytiAdresa)
+void printas(std::ostream& out, const zmogus* s, int pasirinkimas, bool rodytiAdresa)
 {
-    out << std::left << std::setw(13) << s->vardas()
-        << std::setw(15) << s->pavarde()
-        << std::fixed << std::setprecision(2);
-
-    if (pasirinkimas == 1) {
-        out << std::setw(20) << s->galutinis(vidurkis);
-    } else if (pasirinkimas == 2) {
-        out << std::setw(20) << s->galutinis(mediana);
-    } else {
-        out << std::setw(20) << s->galutinis(vidurkis)
-            << std::setw(20) << s->galutinis(mediana);
-    }
+    s->spausdinti(out, pasirinkimas);
 
     if (rodytiAdresa)
         out << std::setw(20) << s;

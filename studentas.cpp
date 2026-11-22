@@ -1,5 +1,7 @@
 #include "studentas.h"
 
+#include <iomanip>
+#include <ostream>
 #include <sstream>
 #include <utility>
 
@@ -12,9 +14,19 @@ studentas::studentas(const studentas& other) = default;
 studentas& studentas::operator=(const studentas& other) = default;
 studentas::~studentas() = default;
 
-double studentas::galutinis(
-    double (*skaiciuoti)(std::vector<double>)
-) const
+void studentas::spausdinti(std::ostream& out, int pasirinkimas) const
+{
+    out << std::left << std::setw(13) << vardas() << std::setw(15) << pavarde() << std::fixed << std::setprecision(2);
+
+    if (pasirinkimas == 1)
+        out << std::setw(20) << galutinis(vidurkis);
+    else if (pasirinkimas == 2)
+        out << std::setw(20) << galutinis(mediana);
+    else
+        out << std::setw(20) << galutinis(vidurkis) << std::setw(20) << galutinis(mediana);
+}
+
+double studentas::galutinis(double (*skaiciuoti)(std::vector<double>)) const
 {
     return 0.4 * skaiciuoti(nd_) + 0.6 * egzaminas_;
 }
@@ -26,16 +38,17 @@ std::istream& studentas::skaityti_studenta(std::istream& is)
         return is;
 
     std::istringstream eilutesSrautas(eilute);
-    std::string vardas;
-    std::string pavarde;
 
-    if (!(eilutesSrautas >> vardas >> pavarde)) {
+    std::string vardasNaujas;
+    std::string pavardeNauja;
+    std::vector<double> pazymiai;
+    double pazymys;
+
+    if (!(eilutesSrautas >> vardasNaujas >> pavardeNauja)) {
         is.setstate(std::ios::failbit);
         return is;
     }
 
-    std::vector<double> pazymiai;
-    double pazymys;
     while (eilutesSrautas >> pazymys)
         pazymiai.push_back(pazymys);
 
@@ -44,8 +57,9 @@ std::istream& studentas::skaityti_studenta(std::istream& is)
         return is;
     }
 
-    vardas_ = std::move(vardas);
-    pavarde_ = std::move(pavarde);
+    vardas(vardasNaujas);
+    pavarde(pavardeNauja);
+
     egzaminas_ = pazymiai.back();
     pazymiai.pop_back();
     nd_ = std::move(pazymiai);
@@ -58,12 +72,12 @@ std::istream& operator>>(std::istream& is, studentas& s)
     return s.skaityti_studenta(is);
 }
 
-std::ostream& operator<<(std::ostream& os, const studentas& s)
+std::ostream& operator<<(std::ostream& out, const studentas& s)
 {
-    os << s.vardas_ << ' ' << s.pavarde_;
+    out << s.vardas() << ' ' << s.pavarde();
 
     for (double pazymys : s.nd_)
-        os << ' ' << pazymys;
+        out << ' ' << pazymys;
 
-    return os << ' ' << s.egzaminas_;
+    return out << ' ' << s.egzaminas_;
 }

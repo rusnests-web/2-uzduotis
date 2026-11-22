@@ -187,7 +187,7 @@ int main()
                         }
                         double egz = rand() % 10 + 1;
                         std::cout <<"Sugeneruoti namu darbu pazymiai: ";
-                        for (int paz : nd) std::cout << paz << " ";
+                        for (double paz : nd) std::cout << paz << " ";
                         std::cout << "\n";
                         std::cout <<"Sugeneruotas egzamino pazymys: " << egz << "\n";
                         studentas naujas = sukurti_studenta(vardas, pavarde, nd, egz);
@@ -229,7 +229,7 @@ int main()
                         for (int i = 0; i < k; i++)
                         {
                             std::cout << "Iveskite " << i + 1 << " pazymi: ";
-                            int a;
+                            double a;
                             while (!(std::cin >> a) || a < 1 || a > 10) 
                             {
                                 std::cout << "Klaida: netaisyklingi duomenys, iveskite " << i + 1 << " pazymi (skaiciu): ";
@@ -260,7 +260,7 @@ int main()
                         }
                         double egz = rand() % 10 + 1;
                         std::cout <<"Sugeneruoti namu darbu pazymiai: ";
-                        for (int paz : nd) std::cout << paz << " ";
+                        for (double paz : nd) std::cout << paz << " ";
                         std::cout << "\n";
                         std::cout <<"Sugeneruotas egzamino pazymys: ";
                         std::cout << egz << "\n";

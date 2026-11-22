@@ -18,9 +18,7 @@ public:
     studentas& operator=(const studentas& other);
     ~studentas();
 
-    double galutinis(
-        double (*skaiciuoti)(std::vector<double>) = mediana
-    ) const;
+    double galutinis(double (*skaiciuoti)(std::vector<double>) = mediana) const;
 
     std::istream& skaityti_studenta(std::istream& is);
     void spausdinti(std::ostream& out, int pasirinkimas) const override;
