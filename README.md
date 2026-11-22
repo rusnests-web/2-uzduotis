@@ -12,6 +12,8 @@
 
 * **v1.1:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *funkcijos.h* failai) ir prideti nauji failai *mediana.cpp* (medianos ir vidurkio skaiciavimo funkciju implementacija), antrastinis failas *mediana.h* ir *studentas.cpp* su Class tipo studento implementacija.
 
+* **v1.2:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *studentas.h*, *studentas.cpp*).
+
 ## Naudojimosi instrukcija
 
 Programa veikia naudotojui pateikiant trumpus atsakymus i pateiktas uzklausas, t.y. tam tikrais atvejais tai gali buti ivedama raide "t" ("taip") arba "n" ("ne"), norimo skaityti failo pavadinimas, studento vardas ir pavarde arba skaicius, atitinkantis norimo pasirinkimo kategorija.
