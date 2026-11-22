@@ -14,6 +14,8 @@
 
 * **v1.2:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *studentas.h*, *studentas.cpp*).
 
+* **v1.5:** Sudaro ankstesnio release failai (papildyti *README.md*, *pradinis.cpp*, *funkcijos.cpp*, *studentas.h*, *studentas.cpp*, *mediana.h*, *mediana.cpp*) ir pridetas naujas antrastinis failas *zmogus.h* su abstrakcios bazines klases *zmogus* implementacija.
+
 ## Naudojimosi instrukcija
 
 Programa veikia naudotojui pateikiant trumpus atsakymus i pateiktas uzklausas, t.y. tam tikrais atvejais tai gali buti ivedama raide "t" ("taip") arba "n" ("ne"), norimo skaityti failo pavadinimas, studento vardas ir pavarde arba skaicius, atitinkantis norimo pasirinkimo kategorija.
@@ -282,3 +284,19 @@ Zemiau pateikiamos bendros programos trukmes ***vidurkiai***, naudojant tuos pac
 |Isvedimas per *operator<<*| `operator<<`|Studentas isvedamas kaip vardo, pavardes, namu darbu ir egzamino pazymiu irasas|
 
 **Pastaba:** skaitant is vartotojo pasirinkto failo ir rezultatu failuose objekto adresas nerodomas. Ivedant duomenis rankiniu budu arba juos generuojant, ekrano isvedime objekto adresas rodomas.
+
+## v1.5 – Abstrakti bazine klase *zmogus* ir isvestine klase *studentas*
+
+*zmogus* yra abstrakti bazine klase, kurioje saugomi bendri zmogaus duomenys – vardas ir pavarde. Ji abstrakti, nes turi grynai virtualu metoda:
+
+`virtual void spausdinti(std::ostream& out, int pasirinkimas) const = 0`
+
+**Pastaba:** `= 0` reiskia, kad bazine klase sio metodo neigyvendina, todel negalima sukurti tiesioginio *zmogus* objekto – klase apibrezia bendra sasaja, bet ne konkretaus zmogaus atvaizdavima. Klase *studentas* paveldi *zmogus* ir pateikia savo spausdinti metodo implementacija, todel galima kurti *studentas* objektus.
+
+**Klasė *studentas* ir polimorfizmas:**
+
+*studentas* paveldi varda ir pavarde is *zmogus*, o pati saugo namu darbu bei egzamino pazymius. Isvedant studenta per bazines klases pointeri, iskvieciamas tikrasis objekto metodas – `studentas::spausdinti`. Taip isvedime implementuojamas polimorfizmas.
+
+**Rule of Three:**
+
+Kaip ir ankstesneje versijoje, *studentas* klaseje aprasyti kopijavimo konstruktorius, kopijavimo priskyrimo operatorius ir destruktorius.
