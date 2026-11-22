@@ -1,13 +1,14 @@
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
 
+#include "zmogus.h"
+#include "mediana.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include "mediana.h"
-
-class studentas
+class studentas : public zmogus
 {
 public:
     studentas() : egzaminas_(0) {}
@@ -17,24 +18,21 @@ public:
     studentas& operator=(const studentas& other);
     ~studentas();
 
-    std::string vardas() const { return vardas_; }
-    std::string pavarde() const { return pavarde_; }
-
     double galutinis(
         double (*skaiciuoti)(std::vector<double>) = mediana
     ) const;
 
     std::istream& skaityti_studenta(std::istream& is);
-    friend std::ostream& operator<<(std::ostream& os, const studentas& s);
+    void spausdinti(std::ostream& out, int pasirinkimas) const override;
+
+    friend std::ostream& operator<<(std::ostream& out, const studentas& s);
 
 private:
-    std::string vardas_;
-    std::string pavarde_;
     double egzaminas_;
     std::vector<double> nd_;
 };
 
 std::istream& operator>>(std::istream& is, studentas& s);
-std::ostream& operator<<(std::ostream& os, const studentas& s);
+std::ostream& operator<<(std::ostream& out, const studentas& s);
 
 #endif
